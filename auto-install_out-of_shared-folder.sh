@@ -1,13 +1,20 @@
 #!/bin/bash
-shared_folder="/media/sf_Share_Linux_Connect" #Здесть надо указать путь до рашаренной папки на WIN
+#shared_folder="   " Здесть надо указать путь до рашаренной папки на WIN в программе ниже
+
+"""монтиронваие для alt linux oracle
+#sudo mkdir -p /mnt/shared
+#sudo mount -t vboxsf shared_folder /mnt/shared
+"""
+
 declare -A dict
 echo -e "\e[32mДанный скрипт устанавливает последнню сборку Connect из расшаренной папке на WIN, чтобы указать путь до расшаернной папке на WIN, зайдите в скрипт и отредактируйет переменную shared_folder\e[0m"
 echo -e "\e[32mУкажиет первые 3 цифры сборки \"Пример = 3.2.0\"\e[0m"
 read build
-echo -e "\e[32mУкажите типо пакета \"Пример = .deb\"\e[0m"
+echo -e "\e[32mУкажите типо пакета \"Пример = deb or rpm\"\e[0m"
 read type_of_package
 #echo $type_of_package
 if [[ "$type_of_package" == ".deb" || "$type_of_package" == "deb"  ]]; then
+	shared_folder="/media/sf_Share_Linux_Connect" #Здесть надо указать путь до рашаренной папки на WIN для deb
     while IFS= read -r -d '' package; do
         dict[("${package##*/}")]="$package"
 
@@ -45,6 +52,7 @@ if [[ "$type_of_package" == ".deb" || "$type_of_package" == "deb"  ]]; then
 
 else
     #echo "Тип пакета Rpm"
+	shared_folder="/mnt/shared" #Здесть надо указать путь до рашаренной папки на WIN для deb
     while IFS= read -r -d '' package; do
         dict[("${package##*/}")]="$package"
 
@@ -78,10 +86,16 @@ else
     done
 
     for i in "${!dict[@]}"; do
-        #echo $i
         if [[ $i == *"${numbers_of_builds[0]}"* ]]; then
-            #echo "011111111"
-            rpm -i "${dict[$i]}"
+			OS=$(lsb_release -a 2>/dev/null)
+			if [[ $OS == *"ALT"* ]]; then
+				echo -e "\e[32mВаша система ALt Linux. Сборка скопировано в /opt. Если возникли ошибки, установите вручную\e[0m"
+				cp "${dict[$i]}" /opt
+				rpm -i /opt/*"${numbers_of_builds[0]}"*
+			else
+            	rpm -i "${dict[$i]}"
+			fi
+
         fi
     done
 
