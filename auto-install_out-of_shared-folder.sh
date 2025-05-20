@@ -1,7 +1,7 @@
 #!/bin/bash
 shared_folder="mnt/shared" Здесть надо указать путь до рашаренной папки на WIN в программе ниже
 
-№монтиронваие для alt linux oracle
+#монтиронваие для alt linux oracle
 #sudo mkdir -p /mnt/shared
 #sudo mount -t vboxsf shared_folder /mnt/shared
 
