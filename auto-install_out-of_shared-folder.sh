@@ -1,10 +1,10 @@
 #!/bin/bash
-#shared_folder="   " Здесть надо указать путь до рашаренной папки на WIN в программе ниже
+shared_folder="mnt/shared" Здесть надо указать путь до рашаренной папки на WIN в программе ниже
 
-"""монтиронваие для alt linux oracle
+№монтиронваие для alt linux oracle
 #sudo mkdir -p /mnt/shared
 #sudo mount -t vboxsf shared_folder /mnt/shared
-"""
+
 
 declare -A dict
 echo -e "\e[32mДанный скрипт устанавливает последнню сборку Connect из расшаренной папке на WIN, чтобы указать путь до расшаернной папке на WIN, зайдите в скрипт и отредактируйет переменную shared_folder\e[0m"
