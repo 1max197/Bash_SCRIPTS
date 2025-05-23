@@ -4,12 +4,13 @@ echo -e "\e[32mlogs will be placed in /opt\e[0m"
 select choise in "HUB" "IPNS" "CPNS" "FILE_SERVER"; do
     case $choise in
         "HUB")
-            echo -e "\e[32mВведите пароль, лог будет помещен в архив HubCore.log.tar.gz\e[0m"
+            echo -e "\e[32mВведите пароль, лог будет помещен в архив HubCore.zip\e[0m"
             ssh root@10.10.88.43 "zip /opt/HubCore.zip /root/.local/share/InfoTeCS/hub_server/HubCore.log"
-            echo -e "\e[32mВведите еще раз пароль, лог HubCore.log.tar.gz будет скачан в /opt\e[0m"
+            echo -e "\e[32mВведите еще раз пароль, лог HubCore.zip будет скачан в /opt\e[0m"
             scp root@10.10.88.43:/opt/HubCore.zip /opt
 			echo -e "\e[32mФайл скачан, проверьте папку 'opt'\e[0m"
 			unzip /opt/HubCore.zip -d /opt/
+			cp /opt/root/.local/share/InfoTeCS/hub_server/HubCore.log /opt
             echo -e "\e[32mДля выхода из программы нажмите Ctrl+C или введите номер для сбора слудющих логов\e[0m"
         ;;
        "IPNS")
